@@ -1,0 +1,18 @@
+h1 {
+  @apply text-4xl;
+  @apply font-serif;
+}
+h2 {
+  @apply text-2xl;
+  @apply font-serif;
+}
+h3, h4, h5, h6 {
+  @apply text-xl;
+}
+a {
+  @apply text-blue-500;
+  @apply underline;
+}
+a:hover {
+  @apply text-blue-700;
+}
