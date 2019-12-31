@@ -16,3 +16,57 @@ a {
 a:hover {
   @apply text-blue-700;
 }
+
+p {
+  @apply mt-4;
+}
+
+ul,
+ol {
+  @apply pl-8;
+  @apply my-4;
+}
+
+ul {
+  list-style-type: disc;
+}
+ol {
+  list-style-type: decimal;
+}
+
+li > p,
+li > ol,
+li > ul {
+  margin: 0;
+}
+
+pre {
+  overflow-x: auto;
+  @apply text-sm;
+  @apply bg-black;
+  @apply text-white;
+  @apply my-4;
+  @apply px-2;
+  @apply py-4;
+  @apply rounded;
+}
+
+pre code {
+  display: block;
+}
+
+p code {
+  display: inline-block;
+  @apply bg-gray-300;
+  @apply text-sm;
+  @apply p-1;
+  @apply rounded-sm;
+  @apply font-semibold;
+}
+
+blockquote {
+  @apply border-l-4;
+  @apply border-gray-600;
+  @apply italic;
+  @apply pl-4;
+}

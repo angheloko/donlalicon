@@ -24,14 +24,14 @@ export default {
   */
   css: [
     '~/assets/css/base.css',
-    '~/assets/css/content.scss'
+    '~/assets/css/editor.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     '~/plugins/firebase',
-    '~/plugins/to-date.js'
+    '~/plugins/to-date'
   ],
   /*
   ** Nuxt.js dev-modules
