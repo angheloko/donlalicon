@@ -5,23 +5,21 @@
 }
 
 h1 {
-  @apply
-  text-4xl
-  font-serif;
+  @apply text-4xl font-serif;
 }
+
 h2 {
-  @apply
-  text-2xl
-  font-serif;
+  @apply text-2xl font-serif;
 }
+
 h3, h4, h5, h6 {
   @apply text-xl;
 }
+
 a {
-  @apply
-  text-blue-500
-  underline;
+  @apply text-blue-500 underline;
 }
+
 a:hover {
   @apply text-blue-700;
 }
@@ -32,14 +30,13 @@ p {
 
 ul,
 ol {
-  @apply
-  pl-8
-  my-4;
+  @apply pl-8 my-4;
 }
 
 ul {
   list-style-type: disc;
 }
+
 ol {
   list-style-type: decimal;
 }
@@ -52,14 +49,7 @@ li > ul {
 
 pre {
   overflow-x: auto;
-  @apply
-  text-sm
-  bg-black
-  text-white
-  my-4
-  px-2
-  py-4
-  rounded;
+  @apply text-sm bg-black text-white my-4 px-2 py-4 rounded;
 }
 
 pre code {
@@ -68,18 +58,9 @@ pre code {
 
 p code {
   display: inline-block;
-  @apply
-  bg-gray-300
-  text-sm
-  p-1
-  rounded-sm
-  font-semibold;
+  @apply bg-gray-300 text-sm p-1 rounded-sm font-semibold;
 }
 
 blockquote {
-  @apply
-  border-l-4
-  border-gray-600
-  italic
-  pl-4;
+  @apply border-l-4 border-gray-600 italic pl-4;
 }
