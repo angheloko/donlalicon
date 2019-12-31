@@ -23,8 +23,7 @@ export default {
   ** Global CSS
   */
   css: [
-    '~/assets/css/base.css',
-    '~/assets/css/editor.css'
+    '~/assets/css/base.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -58,6 +57,12 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+    },
+
+    postcss: {
+      plugins: {
+        'postcss-nested': {}
+      }
     }
   }
 }
