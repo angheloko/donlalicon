@@ -6,7 +6,7 @@
     </div>
     <div class="mb-4">
       <label for="id">ID</label>
-      <input id="id" v-model="blog.id" type="text" placeholder="ID">
+      <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
     </div>
     <div class="mb-4">
       <label>
@@ -70,7 +70,12 @@ export default {
   },
   methods: {
     updateValue () {
-      this.$emit('input', cloneDeep(this.blog))
+      if (!this.blog.id) {
+        alert('Please specify the blog ID.')
+        this.$refs.id.focus()
+      } else {
+        this.$emit('input', cloneDeep(this.blog))
+      }
     }
   }
 }
