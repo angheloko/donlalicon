@@ -15,7 +15,7 @@
       </div>
     </div>
     <figure v-if="blog.imageUrl" class="mb-5">
-      <img :src="blog.imageUrl" :alt="blog.imageAlt" class="w-full">
+      <img :src="blog.imageUrl" :alt="blog.imageAlt || blog.title" class="w-full">
       <figcaption v-if="blog.imageCaption" v-html="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" />
     </figure>
     <div v-html="blog.body" class="content" />

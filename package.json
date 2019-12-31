@@ -15,6 +15,7 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "firebase": "^7.6.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "tiptap": "^1.26.6",

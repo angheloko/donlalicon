@@ -139,7 +139,11 @@
         </button>
       </div>
     </editor-menu-bar>
-    <textarea v-show="viewRaw" :value="html" @input="setContent" class="w-full" />
+    <textarea
+      v-show="viewRaw"
+      :value="html"
+      @input="setContent"
+    />
     <editor-content v-show="!viewRaw" :editor="editor" class="editor__content" />
   </div>
 </template>
@@ -284,11 +288,7 @@ export default {
 }
 
 .menubar__button {
-  @apply p-2;
-  @apply mb-2;
-  @apply bg-gray-300;
-  @apply font-bold;
-  @apply rounded;
+  @apply p-2 mb-2 bg-gray-300 font-bold rounded;
   min-width: 40px;
 }
 
@@ -303,18 +303,21 @@ export default {
 }
 
 .menubar__button.is-disabled {
-  @apply opacity-50;
-  @apply cursor-not-allowed;
+  @apply
+    opacity-50
+    cursor-not-allowed;
 }
 
 .menubar__button.is-disabled:hover {
-  @apply bg-gray-300;
-  @apply opacity-50;
+  @apply
+    bg-gray-300
+    opacity-50;
 }
 
 .menubar__icon {
-  @apply w-6;
-  @apply h-6;
+  @apply
+    w-6
+    h-6;
 }
 
 .menubar__group {
@@ -330,7 +333,24 @@ export default {
 }
 
 .menubar__group .menubar__button:last-child {
-  @apply rounded-r;
-  @apply mr-2;
+  @apply
+    rounded-r
+    mr-2;
+}
+textarea {
+  @apply
+    shadow
+    appearance-none
+    border
+    rounded
+    w-full
+    py-2
+    px-3
+    leading-tight;
+}
+textarea:focus {
+  @apply
+    outline-none
+    border-blue-500;
 }
 </style>
