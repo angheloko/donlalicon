@@ -18,7 +18,7 @@
         {{ teaser.created | toDate }}
       </div>
     </div>
-    <div v-if="teaser.imageUrl">
+    <div v-if="teaser.imageUrl" class="ml-2">
       <nuxt-link :to="{ name: 'blog-id', params: { id: teaser.id } }" class="no-underline">
         <img :src="teaser.imageUrl" :alt="teaser.imageAlt" class="w-32 h-auto object-cover">
       </nuxt-link>
