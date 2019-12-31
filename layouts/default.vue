@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col leading-normal text-gray-800 min-h-screen">
-    <header class="h-16 flex items-center px-5 max-w-4xl md:mx-auto md:w-full">
+  <div class="flex flex-col leading-normal text-gray-800 min-h-screen max-w-4xl md:mx-auto md:w-full">
+    <header class="h-16 flex items-center px-5">
       <nuxt-link to="/" class="text-gray-800 no-underline hover:text-gray-800 flex items-center">
         <h4 class="text-xl font-mono">
           // donlalicon.dev
@@ -10,7 +10,7 @@
     <main class="flex-grow m-5 mb-10 max-w-2xl md:mx-auto md:w-full">
       <nuxt />
     </main>
-    <footer class="px-5 mb-5 text-xs max-w-4xl md:mx-auto md:w-full flex justify-between items-center">
+    <footer class="px-5 mb-5 text-xs flex justify-between items-center">
       <div>
         © Don Lalicon 2019 - 2020 · Built using <a href="https://nuxtjs.org/">Nuxt.js</a> and
         <a href="https://tailwindcss.com/">Tailwind CSS</a>
