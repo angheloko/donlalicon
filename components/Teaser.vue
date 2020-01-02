@@ -20,7 +20,7 @@
     </div>
     <div v-if="teaser.imageUrl" class="ml-2">
       <nuxt-link :to="{ name: 'blog-id', params: { id: teaser.id } }" class="no-underline">
-        <img :src="teaser.imageUrl" :alt="teaser.imageAlt" class="w-32 h-auto object-cover">
+        <img :src="teaser.imageUrl" :alt="teaser.imageAlt || teaser.title" class="w-32 h-auto object-cover">
       </nuxt-link>
     </div>
   </article>
