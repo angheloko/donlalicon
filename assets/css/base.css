@@ -1,3 +1,5 @@
+@import 'highlight.js/styles/solarized-dark.css';
+
 .content {
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -47,13 +49,8 @@ li > ul {
   margin: 0;
 }
 
-pre {
-  overflow-x: auto;
-  @apply text-sm bg-black text-white my-4 px-2 py-4 rounded;
-}
-
 pre code {
-  display: block;
+  @apply hljs my-4;
 }
 
 p code {

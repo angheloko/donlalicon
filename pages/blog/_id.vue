@@ -23,6 +23,10 @@
 </template>
 
 <script>
+import hljs from 'highlight.js/lib/highlight'
+import javascript from 'highlight.js/lib/languages/javascript'
+import css from 'highlight.js/lib/languages/css'
+
 export default {
   name: 'BlogPage',
   data () {
@@ -54,6 +58,14 @@ export default {
     } catch (e) {
       error({ statusCode: 404, message: 'Blog not found' })
     }
+  },
+  mounted () {
+    hljs.registerLanguage('javascript', javascript)
+    hljs.registerLanguage('css', css)
+
+    this.$el.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block)
+    })
   }
 }
 </script>
