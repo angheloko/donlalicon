@@ -1,7 +1,7 @@
 {
   "name": "donlalicon.dev",
   "version": "1.0.0",
-  "description": "My blog",
+  "description": "Mostly my thoughts on web development.",
   "author": "Don",
   "private": true,
   "scripts": {
