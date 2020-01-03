@@ -1,3 +1,5 @@
+@import 'highlight.js/styles/solarized-dark';
+
 .content {
   overflow-wrap: break-word;
   word-wrap: break-word;

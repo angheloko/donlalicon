@@ -5,7 +5,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Don Lalicon - Codesman',
+    titleTemplate: '%s - Don Lalicon - Codesman',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -22,7 +23,9 @@ export default {
   /*
   ** Global CSS
   */
-  css: [],
+  css: [
+    '~/assets/css/styles.css'
+  ],
   purgeCSS: {
     whitelist: ['hljs'],
     whitelistPatterns: [/hljs-.+$/],
@@ -48,7 +51,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // '@nuxtjs/pwa',
+    '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],

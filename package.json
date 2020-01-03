@@ -1,8 +1,8 @@
 {
   "name": "donlalicon.dev",
   "version": "1.0.0",
-  "description": "Mostly my thoughts on web development.",
-  "author": "Don",
+  "description": "Personal blog of Don Lalicon.",
+  "author": "Don Lalicon",
   "private": true,
   "scripts": {
     "dev": "nuxt",

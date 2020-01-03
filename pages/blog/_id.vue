@@ -34,6 +34,40 @@ export default {
       blog: null
     }
   },
+  head () {
+    const head = {
+      title: this.blog.title,
+      meta: [
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: `${this.blog.title} - Don Lalicon - Codesman`
+        }
+      ]
+    }
+
+    if (this.blog.description) {
+      head.meta.push({
+        hid: 'description',
+        name: 'description',
+        content: this.blog.description
+      }, {
+        hid: 'og:description',
+        name: 'og:description',
+        content: this.blog.description
+      })
+    }
+
+    if (this.blog.imageUrl) {
+      head.meta.push({
+        hid: 'og:image',
+        name: 'og:image',
+        content: this.blog.imageUrl
+      })
+    }
+
+    return head
+  },
   validate ({ params }) {
     // Must be a number
     return params.id !== undefined

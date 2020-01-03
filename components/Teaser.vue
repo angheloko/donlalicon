@@ -1,6 +1,6 @@
 <template>
   <article class="flex">
-    <div class="flex-grow">
+    <div class="flex-grow mr-2">
       <div class="text-xs text-gray-600 font-light uppercase font-semibold mb-1 flex">
         <div v-for="tag of teaser.tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
@@ -18,9 +18,9 @@
         {{ teaser.created | toDate }}
       </div>
     </div>
-    <div v-if="teaser.imageUrl" class="ml-2">
+    <div v-if="teaser.imageUrl" class="flex-shrink-0">
       <nuxt-link :to="{ name: 'blog-id', params: { id: teaser.id } }" class="no-underline">
-        <img :src="teaser.imageUrl" :alt="teaser.imageAlt || teaser.title" class="w-32 h-auto object-cover">
+        <img :src="teaser.imageUrl" :alt="teaser.imageAlt || teaser.title" class="w-24 md:w-32 h-auto object-cover">
       </nuxt-link>
     </div>
   </article>
