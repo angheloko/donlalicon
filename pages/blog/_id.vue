@@ -49,13 +49,13 @@ export default {
         {
           hid: 'og:url',
           name: 'og:url',
-          property: url,
+          property: 'og:url',
           content: url
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          property: `${this.blog.title} - Don Lalicon - Codesman`,
+          property: 'og:title',
           content: `${this.blog.title} - Don Lalicon - Codesman`
         }
       ]
@@ -65,12 +65,11 @@ export default {
       head.meta.push({
         hid: 'description',
         name: 'description',
-        property: this.blog.description,
         content: this.blog.description
       }, {
         hid: 'og:description',
         name: 'og:description',
-        property: this.blog.description,
+        property: 'og:description',
         content: this.blog.description
       })
     }
@@ -79,7 +78,7 @@ export default {
       head.meta.push({
         hid: 'og:image',
         name: 'og:image',
-        property: this.blog.imageUrl,
+        property: 'og:image',
         content: this.blog.imageUrl
       })
     }
