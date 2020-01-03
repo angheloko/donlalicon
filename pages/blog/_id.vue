@@ -35,12 +35,27 @@ export default {
     }
   },
   head () {
+    const url = `https://donlalicon.dev/blog/${this.blog.id}`
+
     const head = {
       title: this.blog.title,
+      link: [
+        {
+          rel: 'canonical',
+          href: url
+        }
+      ],
       meta: [
+        {
+          hid: 'og:url',
+          name: 'og:url',
+          property: url,
+          content: url
+        },
         {
           hid: 'og:title',
           name: 'og:title',
+          property: `${this.blog.title} - Don Lalicon - Codesman`,
           content: `${this.blog.title} - Don Lalicon - Codesman`
         }
       ]
@@ -50,10 +65,12 @@ export default {
       head.meta.push({
         hid: 'description',
         name: 'description',
+        property: this.blog.description,
         content: this.blog.description
       }, {
         hid: 'og:description',
         name: 'og:description',
+        property: this.blog.description,
         content: this.blog.description
       })
     }
@@ -62,6 +79,7 @@ export default {
       head.meta.push({
         hid: 'og:image',
         name: 'og:image',
+        property: this.blog.imageUrl,
         content: this.blog.imageUrl
       })
     }
