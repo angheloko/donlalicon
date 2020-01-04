@@ -1,3 +1,4 @@
+/* purgecss start ignore */
 @import 'highlight.js/styles/solarized-dark';
 
 .content {
@@ -61,3 +62,4 @@ p code {
 blockquote {
   @apply border-l-4 border-gray-600 italic pl-4;
 }
+/* purgecss end ignore */
