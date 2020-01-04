@@ -64,5 +64,11 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  serverMiddleware: [
+    {
+      path: '/sitemap.xml',
+      handler: '~/serverMiddleware/sitemap.js'
+    }
+  ]
 }

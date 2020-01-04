@@ -10,16 +10,17 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "deploy": "npm run build && gcloud app deploy --project donlalicon",
-    "sitemap": "node ./scripts/generate-sitemap.js && gcloud app deploy --project donlalicon"
+    "deploy": "npm run build && gcloud app deploy --project donlalicon"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "firebase": "^7.6.1",
+    "firebase-admin": "^8.9.0",
     "highlight.js": "^9.17.1",
     "moment": "^2.24.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "sitemap": "^5.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
@@ -28,9 +29,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
-    "firebase-admin": "^8.9.0",
     "node-sass": "^4.13.0",
-    "sass-loader": "^8.0.0",
-    "sitemap": "^5.1.0"
+    "sass-loader": "^8.0.0"
   }
 }
