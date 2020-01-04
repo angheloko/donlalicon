@@ -10,7 +10,8 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "deploy": "npm run build && gcloud app deploy --project donlalicon"
+    "deploy": "npm run build && gcloud app deploy --project donlalicon",
+    "sitemap": "node ./scripts/generate-sitemap.js && gcloud app deploy --project donlalicon"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
