@@ -22,7 +22,7 @@ a:hover {
 }
 
 p {
-  @apply mt-4;
+  @apply my-4;
 }
 
 ul,
