@@ -9,7 +9,8 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "deploy": "npm run build && gcloud app deploy --project donlalicon"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
