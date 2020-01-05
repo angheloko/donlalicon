@@ -5,8 +5,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: 'Don Lalicon - Codesman',
-    titleTemplate: '%s - Don Lalicon - Codesman',
+    title: 'Don Lalicon - Codesmith',
+    titleTemplate: '%s - Don Lalicon - Codesmith',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

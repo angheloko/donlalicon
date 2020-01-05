@@ -12,8 +12,7 @@
     </main>
     <footer class="px-5 mb-5 text-xs flex justify-between items-center">
       <div>
-        © Don Lalicon 2019 - 2020 · Built using <a href="https://nuxtjs.org/">Nuxt.js</a> and
-        <a href="https://tailwindcss.com/">Tailwind CSS</a>
+        © Don Lalicon 2019 - 2020
       </div>
       <div class="flex">
         <a href="https://twitter.com/DonHasTweets" target="_blank">

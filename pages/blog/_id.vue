@@ -56,7 +56,7 @@ export default {
           hid: 'og:title',
           name: 'og:title',
           property: 'og:title',
-          content: `${this.blog.title} - Don Lalicon - Codesman`
+          content: `${this.blog.title} - Don Lalicon - Codesmith`
         }
       ]
     }
