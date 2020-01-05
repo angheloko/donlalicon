@@ -1,7 +1,7 @@
 <template>
   <article class="flex">
     <div class="flex-grow mr-2">
-      <div class="text-xs text-gray-600 font-light uppercase font-semibold mb-1 flex">
+      <div class="text-xs text-gray-600 font-light uppercase font-semibold mb-1 flex flex-wrap">
         <div v-for="tag of teaser.tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
