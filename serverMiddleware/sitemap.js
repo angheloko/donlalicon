@@ -19,7 +19,6 @@ export default function (req, res, next) {
           lastmod: data.changed
             .toDate()
             .toISOString()
-            .substr(0, 10)
         })
       }
 
