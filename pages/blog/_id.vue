@@ -1,7 +1,7 @@
 <template>
   <article class="blog">
     <div class="mb-5">
-      <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex">
+      <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
         <div v-for="tag of blog.tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
