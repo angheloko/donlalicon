@@ -1,3 +1,4 @@
+/*noinspection CssUnknownTarget*/
 @import 'highlight.js/styles/solarized-dark';
 
 /* purgecss start ignore */
@@ -45,7 +46,7 @@ li > ul {
 }
 
 pre code {
-  @apply my-4;
+  @apply hljs my-4;
 }
 
 p code {
@@ -56,10 +57,50 @@ p code {
 blockquote {
   @apply border-l-4 border-gray-600 italic pl-4;
 }
+
+label {
+  @apply block text-gray-600 text-sm font-bold mb-2;
+}
+
+textarea,
+input[type="text"],
+input[type="password"] {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 leading-tight;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  @apply outline-none border-blue-500;
+}
+
+button {
+  @apply text-gray-600 font-bold py-2 px-4 rounded border-gray-500 border shadow;
+}
 /* purgecss end ignore */
 
 .content {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
+}
+
+.editor {
+  max-height: calc(100vh - 70px);
+  height: calc(100vh - 70px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor__content {
+  flex: 1 0 auto;
+  height: calc(100% - 120px);
+  max-height: calc(100% - 120px);
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.ProseMirror {
+  outline: none;
 }

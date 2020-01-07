@@ -1,8 +1,9 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 import 'firebase/analytics'
 
-export default ({ app, env }, inject) => {
+export default ({ env, store }, inject) => {
   const firebaseConfig = {
     apiKey: env.FB_API_KEY,
     authDomain: env.FB_AUTH_DOMAIN,
@@ -18,6 +19,12 @@ export default ({ app, env }, inject) => {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig)
     firebase.analytics()
+  }
+
+  if (process.client) {
+    firebase.auth().onAuthStateChanged((user) => {
+      store.dispatch('setAuth', user)
+    })
   }
 
   inject('firebase', firebase)

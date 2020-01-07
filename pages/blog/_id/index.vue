@@ -1,55 +1,16 @@
 <template>
-  <article class="blog">
-    <div class="mb-5">
-      <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
-        <div v-for="tag of blog.tags" :key="tag" class="mx-2 first:ml-0">
-          {{ tag }}
-        </div>
-      </div>
-      <h1>{{ blog.title }}</h1>
-      <h2 v-if="blog.lead" class="font-sans text-gray-700 font-light">
-        {{ blog.lead }}
-      </h2>
-      <div class="text-gray-600 text-xs font-light">
-        {{ blog.created | toDate }}
-      </div>
-    </div>
-    <figure v-if="blog.imageUrl" class="mb-5">
-      <img :src="blog.imageUrl" :alt="blog.imageAlt || blog.title" class="w-full">
-      <figcaption v-if="blog.imageCaption" v-html="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" />
-    </figure>
-    <div v-html="blog.body" class="content" />
-    <div class="clearfix mt-10 text-xs font-semibold uppercase">
-      <nuxt-link
-        v-if="prevNext[0]"
-        :to="{ name: 'blog-id', params: { id: prevNext[0].id } }"
-        class="float-left no-underline w-1/2 break-normal"
-      >
-        &lt; {{ prevNext[0].title }}
-      </nuxt-link>
-      <nuxt-link
-        v-if="prevNext[1]"
-        :to="{ name: 'blog-id', params: { id: prevNext[1].id } }"
-        class="float-right no-underline w-1/2 break-normal"
-      >
-        {{ prevNext[1].title }} &gt;
-      </nuxt-link>
-    </div>
-  </article>
+  <blog-details :blog="blog" :prev="prev" :next="next" />
 </template>
-
 <script>
-import hljs from 'highlight.js/lib/highlight'
-import javascript from 'highlight.js/lib/languages/javascript'
-import css from 'highlight.js/lib/languages/css'
-import xml from 'highlight.js/lib/languages/xml'
-
+import BlogDetails from '~/components/BlogDetails'
 export default {
   name: 'BlogPage',
+  components: { BlogDetails },
   data () {
     return {
       blog: null,
-      prevNext: [null, null]
+      prev: null,
+      next: null
     }
   },
   head () {
@@ -156,24 +117,16 @@ export default {
           id: documentSnapshot.id,
           ...documentSnapshot.data()
         },
-        prevNext
+        prev: prevNext[0],
+        next: prevNext[1]
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e)
       error({ statusCode: 404, message: 'Blog not found' })
     }
-  },
-  mounted () {
-    hljs.registerLanguage('javascript', javascript)
-    hljs.registerLanguage('css', css)
-    hljs.registerLanguage('xml', xml)
-
-    this.$el.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightBlock(block)
-    })
   }
 }
 </script>
-
 <style scoped>
 </style>

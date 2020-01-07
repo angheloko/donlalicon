@@ -15,12 +15,16 @@
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "cookieparser": "^0.1.0",
     "firebase": "^7.6.1",
     "firebase-admin": "^8.9.0",
     "highlight.js": "^9.17.1",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
-    "sitemap": "^5.1.0"
+    "sitemap": "^5.1.0",
+    "tiptap": "^1.26.6",
+    "tiptap-extensions": "^1.28.6"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
