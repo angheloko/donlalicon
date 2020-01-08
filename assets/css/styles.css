@@ -77,6 +77,10 @@ input[type="password"]:focus {
 button {
   @apply text-gray-600 font-bold py-2 px-4 rounded border-gray-500 border shadow;
 }
+
+.ProseMirror {
+  outline: none;
+}
 /* purgecss end ignore */
 
 .content {
@@ -99,8 +103,4 @@ button {
   max-height: calc(100% - 120px);
   overflow-y: auto;
   padding-bottom: 20px;
-}
-
-.ProseMirror {
-  outline: none;
 }
