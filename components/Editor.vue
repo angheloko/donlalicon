@@ -4,35 +4,35 @@
       <div class="menubar flex flex-wrap items-center mb-2">
         <div class="menubar__group">
           <button
-            :class="{ 'is-active': isActive.bold(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.bold() }"
             @click="commands.bold"
             class="menubar__button"
           >
             <icon-format-bold class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.italic(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.italic() }"
             @click="commands.italic"
             class="menubar__button"
           >
             <icon-format-italic class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.strike(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.strike() }"
             @click="commands.strike"
             class="menubar__button"
           >
             <icon-format-strikethrough class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.underline(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.underline() }"
             @click="commands.underline"
             class="menubar__button"
           >
             <icon-format-underline class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.code(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.code() }"
             @click="commands.code"
             class="menubar__button"
           >
@@ -41,21 +41,21 @@
         </div>
         <div class="menubar__group">
           <button
-            :class="{ 'is-active': isActive.heading({ level: 2 }), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.heading({ level: 2 }) }"
             @click="commands.heading({ level: 2 })"
             class="menubar__button"
           >
             H2
           </button>
           <button
-            :class="{ 'is-active': isActive.heading({ level: 3 }), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.heading({ level: 3 }) }"
             @click="commands.heading({ level: 3 })"
             class="menubar__button"
           >
             H3
           </button>
           <button
-            :class="{ 'is-active': isActive.heading({ level: 4 }), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.heading({ level: 4 }) }"
             @click="commands.heading({ level: 4 })"
             class="menubar__button"
           >
@@ -64,14 +64,14 @@
         </div>
         <div class="menubar__group">
           <button
-            :class="{ 'is-active': isActive.bullet_list(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.bullet_list() }"
             @click="commands.bullet_list"
             class="menubar__button"
           >
             <icon-format-list-bulleted class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.ordered_list(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.ordered_list() }"
             @click="commands.ordered_list"
             class="menubar__button"
           >
@@ -80,7 +80,7 @@
         </div>
         <div class="menubar__group">
           <button
-            :class="{ 'is-active': isActive.link(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.link() }"
             @click="showLinkPrompt(commands.link, getMarkAttrs('link'))"
             class="menubar__button"
           >
@@ -88,35 +88,33 @@
           </button>
           <button
             :disabled="!isActive.link()"
-            :class="{ 'is-disabled': !isActive.link() || viewRaw }"
+            :class="{ 'is-disabled': !isActive.link() }"
             @click="removeLink(commands.link)"
             class="menubar__button"
           >
             <icon-link-off class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-disabled': viewRaw }"
             @click="showImagePrompt(commands.image)"
             class="menubar__button"
           >
             <icon-add-photo class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.blockquote(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.blockquote() }"
             @click="commands.blockquote"
             class="menubar__button"
           >
             <icon-format-quote class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-active': isActive.code_block(), 'is-disabled': viewRaw }"
+            :class="{ 'is-active': isActive.code_block() }"
             @click="commands.code_block"
             class="menubar__button"
           >
             <icon-format-code class="menubar__icon" />
           </button>
           <button
-            :class="{ 'is-disabled': viewRaw }"
             @click="commands.horizontal_rule"
             class="menubar__button"
           >
@@ -137,22 +135,9 @@
             <icon-redo class="menubar__icon" />
           </button>
         </div>
-        <button
-          :class="{ 'is-active': viewRaw }"
-          @click="viewRaw = !viewRaw"
-          class="menubar__button"
-        >
-          Source
-        </button>
       </div>
     </editor-menu-bar>
-    <!--suppress HtmlFormInputWithoutLabel -->
-    <textarea
-      v-show="viewRaw"
-      :value="html"
-      @input="setContent"
-    />
-    <editor-content v-show="!viewRaw" :editor="editor" class="editor__content" />
+    <editor-content :editor="editor" class="editor__content" />
   </div>
 </template>
 
@@ -228,8 +213,7 @@ export default {
       editor: null,
       linkUrl: null,
       linkMenuIsActive: false,
-      html: '',
-      viewRaw: false
+      html: ''
     }
   },
   mounted () {
@@ -288,9 +272,6 @@ export default {
     },
     removeLink (command) {
       command({ href: null })
-    },
-    setContent (event) {
-      this.editor.setContent(event.target.value)
     }
   }
 }
