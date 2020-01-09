@@ -54,6 +54,13 @@
           >
             H3
           </button>
+          <button
+            :class="{ 'is-active': isActive.heading({ level: 4 }), 'is-disabled': viewRaw }"
+            @click="commands.heading({ level: 4 })"
+            class="menubar__button"
+          >
+            H4
+          </button>
         </div>
         <div class="menubar__group">
           <button
@@ -241,7 +248,7 @@ export default {
           }
         }),
         new HardBreak(),
-        new Heading({ levels: [2, 3] }),
+        new Heading({ levels: [2, 3, 4] }),
         new HorizontalRule(),
         new ListItem(),
         new OrderedList(),

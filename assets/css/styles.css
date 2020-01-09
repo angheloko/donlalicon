@@ -10,8 +10,12 @@ h2 {
   @apply text-2xl font-serif;
 }
 
-h3, h4, h5, h6 {
+h3 {
   @apply text-xl;
+}
+
+h4, h5, h6 {
+  @apply font-black;
 }
 
 a {
