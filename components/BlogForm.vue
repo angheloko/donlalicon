@@ -49,8 +49,7 @@
         <input id="tags" v-model="tags" type="text" placeholder="Tags">
       </div>
       <div class="mb-4">
-        <label for="teaser">Description</label>
-        <!--suppress HtmlFormInputWithoutLabel -->
+        <label for="description">Description</label>
         <textarea id="description" v-model="blog.description" placeholder="Description" />
       </div>
       <div class="mb-4 clearfix">
