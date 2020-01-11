@@ -3,6 +3,7 @@
 </template>
 <script>
 import BlogDetails from '~/components/BlogDetails'
+
 export default {
   name: 'BlogPage',
   components: { BlogDetails },
@@ -16,12 +17,30 @@ export default {
   head () {
     const url = `https://donlalicon.dev/blog/${this.blog.id}`
 
+    const dateCreated = new Date(this.blog.created.seconds * 1000)
+    const dateChanged = new Date(this.blog.changed.seconds * 1000)
+
+    const structuredData = {
+      '@type': 'Article',
+      datePublished: dateCreated.toISOString(),
+      dateModified: dateChanged.toISOString(),
+      headline: this.blog.title,
+      image: this.blog.imageUrl
+    }
+
     const head = {
       title: this.blog.title,
       link: [
         {
           rel: 'canonical',
           href: url
+        }
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(structuredData)
         }
       ],
       meta: [
