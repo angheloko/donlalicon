@@ -36,11 +36,10 @@ export default {
           href: url
         }
       ],
-      __dangerouslyDisableSanitizers: ['script'],
       script: [
         {
           type: 'application/ld+json',
-          innerHTML: JSON.stringify(structuredData)
+          json: structuredData
         }
       ],
       meta: [
