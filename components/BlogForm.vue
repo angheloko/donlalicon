@@ -116,7 +116,8 @@ export default {
       blog: {},
       tags: '',
       status: '',
-      visibleSidebar: 'basic'
+      visibleSidebar: 'basic',
+      originalId: ''
     }
   },
   watch: {
@@ -128,16 +129,27 @@ export default {
       immediate: true
     }
   },
+  mounted () {
+    this.originalId = this.blog.id
+  },
   methods: {
-    submitForm () {
-      // Validate the form.
-      // @todo Check that the ID is unique.
+    async submitForm () {
       if (!this.blog.id) {
-        alert('Please specify the blog ID.')
+        alert('Please enter the blog ID.')
         this.$refs.id.focus()
-      } else {
-        this.updateValue()
+        return
       }
+
+      if (this.originalId !== this.blog.id) {
+        const exists = await this.checkExists(this.blog.id)
+        if (exists) {
+          alert('Blog ID already exists. Please enter a unique blog ID.')
+          this.$refs.id.focus()
+          return
+        }
+      }
+
+      await this.updateValue()
     },
     async updateValue () {
       this.status = 'Saving...'
@@ -158,6 +170,8 @@ export default {
       blog.tags = this.tags.trim() !== '' ? this.tags.split(',').map(item => item.trim()) : []
 
       try {
+        const promises = []
+
         const promise1 = db.collection('blogs').doc(id).set(blog)
 
         const teaser = {
@@ -173,7 +187,16 @@ export default {
 
         const promise2 = db.collection('teasers').doc(id).set(teaser)
 
-        await Promise.all([promise1, promise2])
+        promises.push(promise1, promise2)
+
+        if (this.originalId && this.originalId !== id) {
+          const promise3 = db.collection('blogs').doc(this.originalId).delete()
+          const promise4 = db.collection('teasers').doc(this.originalId).delete()
+
+          promises.push(promise3, promise4)
+        }
+
+        await Promise.all(promises)
       } catch (error) {
         alert('Error saving blog or teaser')
         // eslint-disable-next-line no-console
@@ -184,19 +207,33 @@ export default {
       this.$emit('input', cloneDeep(blog))
 
       this.status = ''
+
+      if (this.originalId !== id) {
+        this.originalId = id
+
+        this.$router.replace({
+          name: 'blog-id-edit',
+          params: {
+            'id': blog.id
+          }
+        })
+      }
     },
     confirmDelete () {
       const result = window.confirm('Are you sure you want to delete this blog?')
       if (result) {
-        if (this.blog.id) {
+        if (this.originalId) {
           const db = this.$firebase.firestore()
 
-          const promise1 = db.collection('blogs').doc(this.blog.id).delete()
-          const promise2 = db.collection('teasers').doc(this.blog.id).delete()
+          const promise1 = db.collection('blogs').doc(this.originalId).delete()
+          const promise2 = db.collection('teasers').doc(this.originalId).delete()
 
           Promise.all([promise1, promise2])
             .then(() => {
               alert('Blog deleted!')
+              this.$router.push({
+                path: '/admin'
+              })
             })
             .catch((error) => {
               alert('Unable to delete blog!')
@@ -208,6 +245,11 @@ export default {
     },
     updateId () {
       this.blog.id = this.slugify(this.blog.title)
+    },
+    async checkExists () {
+      const db = this.$firebase.firestore()
+      const documentSnapshot = await db.collection('blogs').doc(this.blog.id).get()
+      return documentSnapshot.exists
     },
     /**
      * @see https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
