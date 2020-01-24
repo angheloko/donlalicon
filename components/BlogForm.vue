@@ -16,6 +16,9 @@
             {{ status ? status : 'Save' }}
           </button>
           <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
+          <nuxt-link to="/admin" class="ml-2">
+            Back to dashboard
+          </nuxt-link>
         </div>
         <div class="float-right">
           <button
