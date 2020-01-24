@@ -1,58 +1,12 @@
 <template>
-  <div class="flex">
+  <div class="md:flex mb-5">
     <div class="max-w-2xl mr-5">
-      <editor v-model="blog.body" />
-    </div>
-    <div class="flex-grow">
       <div class="mb-4">
         <label for="title">Title</label>
-        <input id="title" v-model="blog.title" type="text" placeholder="Title">
+        <input id="title" v-model="blog.title" @input="updateId" type="text" placeholder="Title">
       </div>
+      <editor v-model="blog.body" />
       <div class="mb-4">
-        <label for="id">ID</label>
-        <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
-      </div>
-      <div class="mb-4">
-        <label>
-          <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
-          <span class="text-sm">
-            Published
-          </span>
-        </label>
-      </div>
-      <div class="mb-4">
-        <label for="lead">Lead</label>
-        <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
-      </div>
-      <div class="mb-4">
-        <label for="teaser">Teaser</label>
-        <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
-      </div>
-      <div class="mb-4">
-        <label for="imageUrl">Image URL</label>
-        <input id="imageUrl" v-model="blog.imageUrl" type="text" placeholder="Image URL">
-      </div>
-      <div class="mb-4">
-        <label for="teaserImageUrl">Teaser image URL</label>
-        <input id="teaserImageUrl" v-model="blog.teaserImageUrl" type="text" placeholder="Teaser image URL">
-      </div>
-      <div class="mb-4">
-        <label for="imageAlt">Image Alt</label>
-        <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
-      </div>
-      <div class="mb-4">
-        <label for="imageCaption">Image caption</label>
-        <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
-      </div>
-      <div class="mb-4">
-        <label for="tags">Tags</label>
-        <input id="tags" v-model="tags" type="text" placeholder="Tags">
-      </div>
-      <div class="mb-4">
-        <label for="description">Description</label>
-        <textarea id="description" v-model="blog.description" placeholder="Description" />
-      </div>
-      <div class="mb-4 clearfix">
         <div class="float-left">
           <button
             :disabled="!!status"
@@ -74,25 +28,95 @@
         </div>
       </div>
     </div>
+    <div class="flex-grow">
+      <div class="rounded border shadow">
+        <div class="border-b">
+          <div @click="visibleSidebar = 'basic'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+            Basic
+          </div>
+          <div :class="{ 'hidden': visibleSidebar !== 'basic' }" class="p-2">
+            <div class="mb-4">
+              <label for="id">ID</label>
+              <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
+            </div>
+            <div class="mb-4">
+              <label>
+                <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
+                <span class="text-sm">Published</span>
+              </label>
+            </div>
+            <div class="mb-4">
+              <label for="lead">Lead</label>
+              <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
+            </div>
+            <div class="mb-4">
+              <label for="imageUrl">Image URL</label>
+              <input id="imageUrl" v-model="blog.imageUrl" type="text" placeholder="Image URL">
+            </div>
+            <div class="mb-4">
+              <label for="imageAlt">Image Alt</label>
+              <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
+            </div>
+            <div class="mb-4">
+              <label for="imageCaption">Image caption</label>
+              <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
+            </div>
+          </div>
+        </div>
+        <div class="border-b">
+          <div @click="visibleSidebar = 'teaser'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+            Teaser
+          </div>
+          <div :class="{ 'hidden': visibleSidebar !== 'teaser' }" class="p-2">
+            <div class="mb-4">
+              <label for="teaser">Teaser</label>
+              <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
+            </div>
+            <div class="mb-4">
+              <label for="teaserImageUrl">Teaser image URL</label>
+              <input id="teaserImageUrl" v-model="blog.teaserImageUrl" type="text" placeholder="Teaser image URL">
+            </div>
+          </div>
+        </div>
+        <div class="border-b">
+          <div @click="visibleSidebar = 'meta'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+            Meta
+          </div>
+          <div :class="{ 'hidden': visibleSidebar !== 'meta' }" class="p-2">
+            <div class="mb-4">
+              <label for="tags">Tags</label>
+              <input id="tags" v-model="tags" type="text" placeholder="Tags">
+            </div>
+            <div class="mb-4">
+              <label for="description">Description</label>
+              <textarea id="description" v-model="blog.description" placeholder="Description" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import { cloneDeep } from 'lodash'
 import Editor from '~/components/Editor'
+
 export default {
   name: 'BlogForm',
   components: { Editor },
   props: {
     value: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data () {
     return {
       blog: {},
       tags: '',
-      status: ''
+      status: '',
+      visibleSidebar: 'basic'
     }
   },
   watch: {
@@ -181,9 +205,31 @@ export default {
             })
         }
       }
+    },
+    updateId () {
+      this.blog.id = this.slugify(this.blog.title)
+    },
+    /**
+     * @see https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
+     */
+    slugify (string) {
+      const a =
+        'àáäâãåăæąçćčđďèéěėëêęğǵḧìíïîįłḿǹńňñòóöôœøṕŕřßşśšșťțùúüûǘůűūųẃẍÿýźžż·/_,:;'
+      const b =
+        'aaaaaaaaacccddeeeeeeegghiiiiilmnnnnooooooprrsssssttuuuuuuuuuwxyyzzz------'
+      const p = new RegExp(a.split('').join('|'), 'g')
+
+      return string
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+        .replace(/&/g, '-and-') // Replace & with 'and'
+        .replace(/[^\w-]+/g, '') // Remove all non-word characters
+        .replace(/--+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, '') // Trim - from end of text
     }
   }
 }
 </script>
-<style scoped>
-</style>

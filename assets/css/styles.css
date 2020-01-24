@@ -94,8 +94,8 @@ button {
 }
 
 .editor {
-  max-height: calc(100vh - 70px);
-  height: calc(100vh - 70px);
+  max-height: calc(100vh - 220px);
+  height: calc(100vh - 220px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
