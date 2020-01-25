@@ -1,101 +1,105 @@
 <template>
-  <div class="md:flex mb-5">
-    <div class="max-w-2xl mr-5">
-      <div class="mb-4">
-        <label for="title">Title</label>
-        <input id="title" v-model="blog.title" @input="updateId" type="text" placeholder="Title">
-      </div>
-      <editor v-model="blog.body" />
-      <div class="mb-4">
-        <div class="float-left">
-          <button
-            :disabled="!!status"
-            @click="submitForm"
-            type="button"
-          >
-            {{ status ? status : 'Save' }}
-          </button>
-          <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
-          <nuxt-link to="/admin" class="ml-2">
-            Back to dashboard
-          </nuxt-link>
+  <div>
+    <div class="lg:flex mb-5">
+      <div class="lg:mr-5 lg:w-3/5">
+        <div class="mb-4">
+          <label for="title">Title</label>
+          <input id="title" v-model="blog.title" @input="updateId" type="text" placeholder="Title">
         </div>
-        <div class="float-right">
-          <button
-            @click="confirmDelete"
-            type="button"
-            class="bg-red-500 border-red-300 text-white"
-          >
-            Delete
-          </button>
+        <editor v-model="blog.body" />
+      </div>
+      <div class="lg:w-2/5">
+        <div class="rounded border shadow">
+          <div class="border-b">
+            <div @click="visibleSidebar = 'basic'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+              Basic
+            </div>
+            <div :class="{ 'hidden': visibleSidebar !== 'basic' }" class="p-2">
+              <div class="mb-4">
+                <label for="id">ID</label>
+                <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
+              </div>
+              <div class="mb-4">
+                <label>
+                  <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
+                  <span class="text-sm">Published</span>
+                </label>
+              </div>
+              <div class="mb-4">
+                <label for="lead">Lead</label>
+                <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
+              </div>
+              <div class="mb-4">
+                <!--<label for="imageUrl">Image URL</label>
+                <input id="imageUrl" v-model="blog.imageUrl" type="text" placeholder="Image URL">-->
+                <label for="imageUrl">Banner</label>
+                <input id="imageUrl" type="file" accept="image/png, image/jpeg">
+              </div>
+              <div class="mb-4">
+                <label for="imageAlt">Image Alt</label>
+                <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
+              </div>
+              <div class="mb-4">
+                <label for="imageCaption">Image caption</label>
+                <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
+              </div>
+            </div>
+          </div>
+          <div class="border-b">
+            <div @click="visibleSidebar = 'teaser'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+              Teaser
+            </div>
+            <div :class="{ 'hidden': visibleSidebar !== 'teaser' }" class="p-2">
+              <div class="mb-4">
+                <label for="teaser">Teaser</label>
+                <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
+              </div>
+              <div class="mb-4">
+                <label for="teaserImageUrl">Teaser image URL</label>
+                <input id="teaserImageUrl" v-model="blog.teaserImageUrl" type="text" placeholder="Teaser image URL">
+              </div>
+            </div>
+          </div>
+          <div class="border-b">
+            <div @click="visibleSidebar = 'meta'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
+              Meta
+            </div>
+            <div :class="{ 'hidden': visibleSidebar !== 'meta' }" class="p-2">
+              <div class="mb-4">
+                <label for="tags">Tags</label>
+                <input id="tags" v-model="tags" type="text" placeholder="Tags">
+              </div>
+              <div class="mb-4">
+                <label for="description">Description</label>
+                <textarea id="description" v-model="blog.description" placeholder="Description" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="flex-grow">
-      <div class="rounded border shadow">
-        <div class="border-b">
-          <div @click="visibleSidebar = 'basic'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-            Basic
-          </div>
-          <div :class="{ 'hidden': visibleSidebar !== 'basic' }" class="p-2">
-            <div class="mb-4">
-              <label for="id">ID</label>
-              <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
-            </div>
-            <div class="mb-4">
-              <label>
-                <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
-                <span class="text-sm">Published</span>
-              </label>
-            </div>
-            <div class="mb-4">
-              <label for="lead">Lead</label>
-              <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
-            </div>
-            <div class="mb-4">
-              <label for="imageUrl">Image URL</label>
-              <input id="imageUrl" v-model="blog.imageUrl" type="text" placeholder="Image URL">
-            </div>
-            <div class="mb-4">
-              <label for="imageAlt">Image Alt</label>
-              <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
-            </div>
-            <div class="mb-4">
-              <label for="imageCaption">Image caption</label>
-              <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
-            </div>
-          </div>
-        </div>
-        <div class="border-b">
-          <div @click="visibleSidebar = 'teaser'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-            Teaser
-          </div>
-          <div :class="{ 'hidden': visibleSidebar !== 'teaser' }" class="p-2">
-            <div class="mb-4">
-              <label for="teaser">Teaser</label>
-              <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
-            </div>
-            <div class="mb-4">
-              <label for="teaserImageUrl">Teaser image URL</label>
-              <input id="teaserImageUrl" v-model="blog.teaserImageUrl" type="text" placeholder="Teaser image URL">
-            </div>
-          </div>
-        </div>
-        <div class="border-b">
-          <div @click="visibleSidebar = 'meta'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-            Meta
-          </div>
-          <div :class="{ 'hidden': visibleSidebar !== 'meta' }" class="p-2">
-            <div class="mb-4">
-              <label for="tags">Tags</label>
-              <input id="tags" v-model="tags" type="text" placeholder="Tags">
-            </div>
-            <div class="mb-4">
-              <label for="description">Description</label>
-              <textarea id="description" v-model="blog.description" placeholder="Description" />
-            </div>
-          </div>
-        </div>
+    <div class="mb-4 clearfix">
+      <div class="float-left">
+        <button
+          :disabled="!!status"
+          @click="submitForm"
+          type="button"
+        >
+          {{ status ? status : 'Save' }}
+        </button>
+        <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
+        <nuxt-link to="/admin" class="ml-2">
+          Back to dashboard
+        </nuxt-link>
+      </div>
+      <div class="float-right">
+        <button
+          @click="confirmDelete"
+          type="button"
+          class="bg-red-500 border-red-300 text-white"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>
