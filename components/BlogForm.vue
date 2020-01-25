@@ -300,9 +300,9 @@ export default {
         return
       }
 
-      // const metadata = {
-      //   contentType: file.type
-      // }
+      const metadata = {
+        contentType: file.type
+      }
 
       const fullImageResizePromise = new Promise((resolve, reject) => {
         this.generateVariation(file, this.FULL_IMAGE.maxDimension, this.FULL_IMAGE.quality, resolve)
@@ -314,10 +314,10 @@ export default {
 
       const images = await Promise.all([fullImageResizePromise, thumbImageResizePromise])
 
-      const fullImageUploadPromise = this.uploadSingleImageFile(file.name, images[0])
+      const fullImageUploadPromise = this.uploadSingleImageFile(file.name, images[0], metadata)
 
       const thumbFileName = file.name.substring(0, file.name.lastIndexOf('.')) + '_thumb.' + file.name.substring(file.name.lastIndexOf('.') + 1)
-      const thumbImageUploadPromise = this.uploadSingleImageFile(thumbFileName, images[1])
+      const thumbImageUploadPromise = this.uploadSingleImageFile(thumbFileName, images[1], metadata)
 
       this.isUploadingImage = true
 
@@ -391,9 +391,14 @@ export default {
     },
     deleteImage () {
       this.isDeletingImage = true
-      this.$firebase.storage().refFromURL(this.blog.imageUrl).delete()
+
+      const fullImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.imageUrl).delete()
+      const thumbImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.teaserImageUrl).delete()
+
+      Promise.all([fullImageDeletePromise, thumbImageDeletePromise])
         .then(() => {
           this.blog.imageUrl = ''
+          this.blog.teaserImageUrl = ''
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
@@ -401,6 +406,7 @@ export default {
 
           if (error.code === 'storage/object-not-found') {
             this.blog.imageUrl = ''
+            this.blog.teaserImageUrl = ''
           }
         })
         .finally(() => {
