@@ -9,97 +9,96 @@
         <editor v-model="blog.body" />
       </div>
       <div class="lg:w-2/5">
-        <div class="rounded border shadow">
-          <div class="border-b">
-            <div @click="visibleSidebar = 'basic'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-              Basic
-            </div>
-            <div :class="{ 'hidden': visibleSidebar !== 'basic' }" class="p-2">
-              <div class="mb-4">
-                <label for="id">ID</label>
-                <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
-              </div>
-              <div class="mb-4">
-                <label>
-                  <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
-                  <span class="text-sm">Published</span>
-                </label>
-              </div>
-              <div class="mb-4">
-                <label for="lead">Lead</label>
-                <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
-              </div>
-              <div class="mb-4">
-                <!--<label for="imageUrl">Image URL</label>
-                <input id="imageUrl" v-model="blog.imageUrl" type="text" placeholder="Image URL">-->
-                <label for="imageUrl">Banner</label>
-                <input id="imageUrl" type="file" accept="image/png, image/jpeg">
-              </div>
-              <div class="mb-4">
-                <label for="imageAlt">Image Alt</label>
-                <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
-              </div>
-              <div class="mb-4">
-                <label for="imageCaption">Image caption</label>
-                <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
-              </div>
-            </div>
+        <div class="rounded border shadow p-2">
+          <div class="mb-4">
+            <label for="id">ID</label>
+            <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
           </div>
-          <div class="border-b">
-            <div @click="visibleSidebar = 'teaser'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-              Teaser
-            </div>
-            <div :class="{ 'hidden': visibleSidebar !== 'teaser' }" class="p-2">
-              <div class="mb-4">
-                <label for="teaser">Teaser</label>
-                <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
-              </div>
-              <div class="mb-4">
-                <label for="teaserImageUrl">Teaser image URL</label>
-                <input id="teaserImageUrl" v-model="blog.teaserImageUrl" type="text" placeholder="Teaser image URL">
-              </div>
-            </div>
+          <div class="mb-4">
+            <label>
+              <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
+              <span class="text-sm">Published</span>
+            </label>
           </div>
-          <div class="border-b">
-            <div @click="visibleSidebar = 'meta'" class="bg-gray-200 p-2 text-sm font-bold text-gray-700">
-              Meta
+          <div class="mb-4">
+            <label for="imageUrl">Image</label>
+            <div v-if="blog.imageUrl">
+              <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
+              <button
+                v-if="blog.imageUrl"
+                @click="deleteImage"
+                :disabled="isDeletingImage"
+                type="button"
+                class="bg-red-500 border-red-300 text-white"
+              >
+                {{ isDeletingImage ? 'Deleting...' : 'Delete' }}
+              </button>
             </div>
-            <div :class="{ 'hidden': visibleSidebar !== 'meta' }" class="p-2">
-              <div class="mb-4">
-                <label for="tags">Tags</label>
-                <input id="tags" v-model="tags" type="text" placeholder="Tags">
-              </div>
-              <div class="mb-4">
-                <label for="description">Description</label>
-                <textarea id="description" v-model="blog.description" placeholder="Description" />
-              </div>
+            <button
+              v-if="!blog.imageUrl"
+              @click="launchImageFile"
+              :disabled="isUploadingImage"
+              type="button"
+            >
+              {{ isUploadingImage ? 'Uploading...' : 'Upload' }}
+            </button>
+            <input
+              ref="imageFile"
+              @change.prevent="uploadImageFile($event.target.files)"
+              type="file"
+              accept="image/png, image/jpeg"
+              class="hidden"
+            >
+          </div>
+          <div class="mb-4">
+            <label for="imageAlt">Image Alt</label>
+            <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
+          </div>
+          <div class="mb-4">
+            <label for="imageCaption">Image caption</label>
+            <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
+          </div>
+          <div class="mb-4">
+            <label for="lead">Lead</label>
+            <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
+          </div>
+          <div class="mb-4">
+            <label for="teaser">Teaser</label>
+            <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
+          </div>
+          <div class="mb-4">
+            <label for="tags">Tags</label>
+            <input id="tags" v-model="tags" type="text" placeholder="Tags">
+          </div>
+          <div class="mb-4">
+            <label for="description">Description</label>
+            <textarea id="description" v-model="blog.description" placeholder="Description" />
+          </div>
+          <div class="mb-4 clearfix">
+            <div class="float-left">
+              <button
+                :disabled="!!status"
+                @click="submitForm"
+                type="button"
+              >
+                {{ status ? status : 'Save' }}
+              </button>
+              <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
+              <nuxt-link to="/admin" class="ml-2">
+                Back to dashboard
+              </nuxt-link>
+            </div>
+            <div class="float-right">
+              <button
+                @click="confirmDelete"
+                type="button"
+                class="bg-red-500 border-red-300 text-white"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="mb-4 clearfix">
-      <div class="float-left">
-        <button
-          :disabled="!!status"
-          @click="submitForm"
-          type="button"
-        >
-          {{ status ? status : 'Save' }}
-        </button>
-        <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
-        <nuxt-link to="/admin" class="ml-2">
-          Back to dashboard
-        </nuxt-link>
-      </div>
-      <div class="float-right">
-        <button
-          @click="confirmDelete"
-          type="button"
-          class="bg-red-500 border-red-300 text-white"
-        >
-          Delete
-        </button>
       </div>
     </div>
   </div>
@@ -123,8 +122,17 @@ export default {
       blog: {},
       tags: '',
       status: '',
-      visibleSidebar: 'basic',
-      originalId: ''
+      originalId: '',
+      isUploadingImage: false,
+      isDeletingImage: false,
+      FULL_IMAGE: {
+        maxDimension: 1280,
+        quality: 0.9
+      },
+      THUMB_IMAGE: {
+        maxDimension: 640,
+        quality: 0.7
+      }
     }
   },
   watch: {
@@ -206,7 +214,6 @@ export default {
         await Promise.all(promises)
       } catch (error) {
         alert('Error saving blog or teaser')
-        // eslint-disable-next-line no-console
         console.error(error)
       }
 
@@ -278,6 +285,127 @@ export default {
         .replace(/--+/g, '-') // Replace multiple - with single -
         .replace(/^-+/, '') // Trim - from start of text
         .replace(/-+$/, '') // Trim - from end of text
+    },
+    launchImageFile () {
+      this.$refs.imageFile.click()
+    },
+    async uploadImageFile (files) {
+      if (!files.length) {
+        return
+      }
+      const file = files[0]
+
+      if (!file.type.match('image.*')) {
+        alert('Please upload an image.')
+        return
+      }
+
+      // const metadata = {
+      //   contentType: file.type
+      // }
+
+      const fullImageResizePromise = new Promise((resolve, reject) => {
+        this.generateVariation(file, this.FULL_IMAGE.maxDimension, this.FULL_IMAGE.quality, resolve)
+      })
+
+      const thumbImageResizePromise = new Promise((resolve, reject) => {
+        this.generateVariation(file, this.THUMB_IMAGE.maxDimension, this.THUMB_IMAGE.quality, resolve)
+      })
+
+      const images = await Promise.all([fullImageResizePromise, thumbImageResizePromise])
+
+      const fullImageUploadPromise = this.uploadSingleImageFile(file.name, images[0])
+
+      const thumbFileName = file.name.substring(0, file.name.lastIndexOf('.')) + '_thumb.' + file.name.substring(file.name.lastIndexOf('.') + 1)
+      const thumbImageUploadPromise = this.uploadSingleImageFile(thumbFileName, images[1])
+
+      this.isUploadingImage = true
+
+      return Promise.all([fullImageUploadPromise, thumbImageUploadPromise])
+        .then((results) => {
+          this.blog.imageUrl = results[0]
+          this.blog.teaserImageUrl = results[1]
+        })
+        .finally(() => {
+          this.isUploadingImage = false
+        })
+    },
+    uploadSingleImageFile (filename, blob, metadata) {
+      const storage = this.$firebase.storage()
+      const imageRef = storage.ref(`images/${filename}`)
+
+      const uploadTask = imageRef.put(blob, metadata).then((snapshot) => {
+        return snapshot.ref.getDownloadURL().then((url) => {
+          return url
+        })
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error uploading image', error)
+      })
+
+      return uploadTask
+    },
+    generateVariation (file, maxDimension, quality, cb) {
+      const displayPicture = (url) => {
+        const image = new Image()
+        image.src = url
+        image.onload = () => {
+          const canvas = this.getScaledCanvas(image, maxDimension)
+          canvas.toBlob(cb, 'image/jpeg', quality)
+        }
+      }
+
+      const reader = new FileReader()
+      reader.onload = e => displayPicture(e.target.result)
+      reader.readAsDataURL(file)
+    },
+    getScaledCanvas (image, maxDimension) {
+      const scaledCanvas = document.createElement('canvas')
+
+      if (image.width > maxDimension || image.height > maxDimension) {
+        if (image.width > image.height) {
+          scaledCanvas.width = maxDimension
+          scaledCanvas.height = (maxDimension * image.height) / image.width
+        } else {
+          scaledCanvas.width = (maxDimension * image.width) / image.height
+          scaledCanvas.height = maxDimension
+        }
+      } else {
+        scaledCanvas.width = image.width
+        scaledCanvas.height = image.height
+      }
+      scaledCanvas
+        .getContext('2d')
+        .drawImage(
+          image,
+          0,
+          0,
+          image.width,
+          image.height,
+          0,
+          0,
+          scaledCanvas.width,
+          scaledCanvas.height
+        )
+      return scaledCanvas
+    },
+    deleteImage () {
+      this.isDeletingImage = true
+      this.$firebase.storage().refFromURL(this.blog.imageUrl).delete()
+        .then(() => {
+          this.blog.imageUrl = ''
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.error('Error deleting image', error)
+
+          if (error.code === 'storage/object-not-found') {
+            this.blog.imageUrl = ''
+          }
+        })
+        .finally(() => {
+          this.isDeletingImage = false
+        })
     }
   }
 }

@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/analytics'
+import 'firebase/storage'
 
 export default ({ env, store }, inject) => {
   const firebaseConfig = {
