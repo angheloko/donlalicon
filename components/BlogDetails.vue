@@ -20,6 +20,11 @@
       <figcaption v-if="blog.imageCaption" v-html="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" />
     </figure>
     <div v-html="blog.body" class="content" />
+    <div class="border rounded shadow p-5 text-gray-600 w-2/3 mx-auto my-10">
+      Hey there! I hope you find this post useful. If you have anything to say about this post,
+      questions or feedback, send me a <a href="https://twitter.com/DonHasTweets" target="_blank">tweet</a>
+      or an <a href="mailto:dalalicon@gmail.com" target="_blank">email</a>.
+    </div>
     <div class="clearfix mt-10 text-xs font-semibold uppercase">
       <nuxt-link
         v-if="prev"
