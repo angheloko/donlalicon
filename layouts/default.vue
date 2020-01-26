@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col leading-normal text-gray-800 min-h-screen lg:w-3/5 md:mx-auto md:w-full">
+  <div class="flex flex-col leading-normal text-gray-800 min-h-screen lg:w-2/4 md:mx-auto md:w-full">
     <header class="h-16 flex items-center mx-5">
       <nuxt-link to="/" class="text-gray-800 no-underline hover:text-gray-800 flex items-center">
         <h4 class="text-xl font-mono">

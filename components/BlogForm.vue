@@ -1,102 +1,102 @@
 <template>
-  <div>
-    <div class="lg:flex mb-5">
-      <div class="lg:mr-5 lg:w-3/5">
+  <div class="lg:flex mb-5 mx-auto justify-center">
+    <div class="lg:w-2/4">
+      <div class="mx-5">
         <div class="mb-4">
           <label for="title">Title</label>
           <input id="title" v-model="blog.title" @input="updateId" type="text" placeholder="Title">
         </div>
         <editor v-model="blog.body" />
       </div>
-      <div class="lg:w-2/5">
-        <div class="rounded border shadow p-2">
-          <div class="mb-4">
-            <label for="id">ID</label>
-            <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
-          </div>
-          <div class="mb-4">
-            <label>
-              <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
-              <span class="text-sm">Published</span>
-            </label>
-          </div>
-          <div class="mb-4">
-            <label for="imageUrl">Image</label>
-            <div v-if="blog.imageUrl">
-              <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
-              <button
-                v-if="blog.imageUrl"
-                @click="deleteImage"
-                :disabled="isDeletingImage"
-                type="button"
-                class="bg-red-500 border-red-300 text-white"
-              >
-                {{ isDeletingImage ? 'Deleting...' : 'Delete' }}
-              </button>
-            </div>
+    </div>
+    <div class="lg:w-1/4">
+      <div class="rounded border shadow p-2">
+        <div class="mb-4">
+          <label for="id">ID</label>
+          <input id="id" ref="id" v-model="blog.id" type="text" placeholder="ID">
+        </div>
+        <div class="mb-4">
+          <label>
+            <input v-model="blog.published" class="mr-2 leading-tight" type="checkbox">
+            <span class="text-sm">Published</span>
+          </label>
+        </div>
+        <div class="mb-4">
+          <label for="imageUrl">Image</label>
+          <div v-if="blog.imageUrl">
+            <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
             <button
-              v-if="!blog.imageUrl"
-              @click="launchImageFile"
-              :disabled="isUploadingImage"
+              v-if="blog.imageUrl"
+              @click="deleteImage"
+              :disabled="isDeletingImage"
+              type="button"
+              class="bg-red-500 border-red-300 text-white"
+            >
+              {{ isDeletingImage ? 'Deleting...' : 'Delete' }}
+            </button>
+          </div>
+          <button
+            v-if="!blog.imageUrl"
+            @click="launchImageFile"
+            :disabled="isUploadingImage"
+            type="button"
+          >
+            {{ isUploadingImage ? 'Uploading...' : 'Upload' }}
+          </button>
+          <input
+            ref="imageFile"
+            @change.prevent="uploadImageFile($event.target.files)"
+            type="file"
+            accept="image/png, image/jpeg"
+            class="hidden"
+          >
+        </div>
+        <div class="mb-4">
+          <label for="imageAlt">Image Alt</label>
+          <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
+        </div>
+        <div class="mb-4">
+          <label for="imageCaption">Image caption</label>
+          <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
+        </div>
+        <div class="mb-4">
+          <label for="lead">Lead</label>
+          <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
+        </div>
+        <div class="mb-4">
+          <label for="teaser">Teaser</label>
+          <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
+        </div>
+        <div class="mb-4">
+          <label for="tags">Tags</label>
+          <input id="tags" v-model="tags" type="text" placeholder="Tags">
+        </div>
+        <div class="mb-4">
+          <label for="description">Description</label>
+          <textarea id="description" v-model="blog.description" placeholder="Description" />
+        </div>
+        <div class="mb-4 clearfix">
+          <div class="float-left">
+            <button
+              :disabled="!!status"
+              @click="submitForm"
               type="button"
             >
-              {{ isUploadingImage ? 'Uploading...' : 'Upload' }}
+              {{ status ? status : 'Save' }}
             </button>
-            <input
-              ref="imageFile"
-              @change.prevent="uploadImageFile($event.target.files)"
-              type="file"
-              accept="image/png, image/jpeg"
-              class="hidden"
+            <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
+            <nuxt-link to="/admin" class="ml-2">
+              Back to dashboard
+            </nuxt-link>
+          </div>
+          <div class="float-right">
+            <button
+              @click="confirmDelete"
+              type="button"
+              class="bg-red-500 border-red-300 text-white"
             >
-          </div>
-          <div class="mb-4">
-            <label for="imageAlt">Image Alt</label>
-            <input id="imageAlt" v-model="blog.imageAlt" type="text" placeholder="Image Alt">
-          </div>
-          <div class="mb-4">
-            <label for="imageCaption">Image caption</label>
-            <textarea id="imageCaption" v-model="blog.imageCaption" placeholder="Image caption" />
-          </div>
-          <div class="mb-4">
-            <label for="lead">Lead</label>
-            <textarea id="lead" v-model="blog.lead" placeholder="Lead" />
-          </div>
-          <div class="mb-4">
-            <label for="teaser">Teaser</label>
-            <textarea id="teaser" v-model="blog.teaser" placeholder="Teaser" />
-          </div>
-          <div class="mb-4">
-            <label for="tags">Tags</label>
-            <input id="tags" v-model="tags" type="text" placeholder="Tags">
-          </div>
-          <div class="mb-4">
-            <label for="description">Description</label>
-            <textarea id="description" v-model="blog.description" placeholder="Description" />
-          </div>
-          <div class="mb-4 clearfix">
-            <div class="float-left">
-              <button
-                :disabled="!!status"
-                @click="submitForm"
-                type="button"
-              >
-                {{ status ? status : 'Save' }}
-              </button>
-              <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
-              <nuxt-link to="/admin" class="ml-2">
-                Back to dashboard
-              </nuxt-link>
-            </div>
-            <div class="float-right">
-              <button
-                @click="confirmDelete"
-                type="button"
-                class="bg-red-500 border-red-300 text-white"
-              >
-                Delete
-              </button>
-            </div>
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -214,6 +214,7 @@ export default {
         await Promise.all(promises)
       } catch (error) {
         alert('Error saving blog or teaser')
+        // eslint-disable-next-line no-console
         console.error(error)
       }
 
@@ -334,7 +335,7 @@ export default {
       const storage = this.$firebase.storage()
       const imageRef = storage.ref(`images/${filename}`)
 
-      const uploadTask = imageRef.put(blob, metadata).then((snapshot) => {
+      return imageRef.put(blob, metadata).then((snapshot) => {
         return snapshot.ref.getDownloadURL().then((url) => {
           return url
         })
@@ -342,8 +343,6 @@ export default {
         // eslint-disable-next-line no-console
         console.error('Error uploading image', error)
       })
-
-      return uploadTask
     },
     generateVariation (file, maxDimension, quality, cb) {
       const displayPicture = (url) => {
