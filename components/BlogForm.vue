@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:flex mb-5 mx-auto justify-center">
+  <div class="lg:flex mx-auto justify-center">
     <div class="lg:w-2/4">
       <div class="mx-5">
         <div class="mb-4">
@@ -85,9 +85,6 @@
               {{ status ? status : 'Save' }}
             </button>
             <a :href="`/blog/${blog.id}/preview`" class="ml-2" target="_blank">Preview</a>
-            <nuxt-link to="/admin" class="ml-2">
-              Back to dashboard
-            </nuxt-link>
           </div>
           <div class="float-right">
             <button

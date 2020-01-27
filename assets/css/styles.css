@@ -92,16 +92,3 @@ button {
   word-wrap: break-word;
   word-break: break-word;
 }
-
-.editor {
-  display: flex;
-  flex-direction: column;
-}
-
-.editor__content {
-  flex: 1 0 auto;
-  overflow-y: auto;
-  position: relative;
-  height: calc(100vh - 200px);
-  max-height: calc(100vh - 200px);
-}

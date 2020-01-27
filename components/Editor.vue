@@ -137,7 +137,7 @@
         </div>
       </div>
     </editor-menu-bar>
-    <editor-content :editor="editor" class="editor__content" />
+    <editor-content :editor="editor" class="editor__content content" />
   </div>
 </template>
 
@@ -278,10 +278,20 @@ export default {
 </script>
 
 <style scoped>
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.menubar {
+  flex: 0 1 auto;
+}
+
 .editor__content {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
+  flex: 1 1 auto;
+  overflow: auto;
 }
 
 .menubar__button {
