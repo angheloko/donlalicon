@@ -2,7 +2,7 @@
   <article class="blog">
     <div class="mb-5">
       <div class="text-xs uppercase font-semibold text-gray-600 mb-1 flex flex-wrap">
-        <div v-for="tag of blog.tags" :key="tag" class="mx-2 first:ml-0">
+        <div v-for="tag of tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
       </div>
@@ -72,6 +72,11 @@ export default {
     next: {
       type: Object,
       default: null
+    }
+  },
+  computed: {
+    tags () {
+      return this.blog.tags.slice(0).sort()
     }
   },
   mounted () {

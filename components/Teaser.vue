@@ -2,16 +2,22 @@
   <article class="flex">
     <div class="flex-grow mr-2">
       <div class="text-xs text-gray-600 font-light uppercase font-semibold mb-1 flex flex-wrap">
-        <div v-for="tag of teaser.tags" :key="tag" class="mx-2 first:ml-0">
+        <div v-for="tag of tags" :key="tag" class="mx-2 first:ml-0">
           {{ tag }}
         </div>
       </div>
-      <nuxt-link :to="{ name: 'blog-id', params: { id: teaser.id } }" class="text-gray-800 no-underline hover:text-gray-800">
+      <nuxt-link
+        :to="{ name: 'blog-id', params: { id: teaser.id } }"
+        class="text-gray-800 no-underline hover:text-gray-800"
+      >
         <h2 class="mb-2">
           {{ teaser.title }}
         </h2>
       </nuxt-link>
-      <nuxt-link :to="{ name: 'blog-id', params: { id: teaser.id } }" class="text-gray-700 no-underline hover:text-gray-700">
+      <nuxt-link
+        :to="{ name: 'blog-id', params: { id: teaser.id } }"
+        class="text-gray-700 no-underline hover:text-gray-700"
+      >
         <div v-html="teaser.body" class="mb-2 text-lg" />
       </nuxt-link>
       <div class="text-xs text-gray-600 font-light">
@@ -33,6 +39,11 @@ export default {
     teaser: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    tags () {
+      return this.teaser.tags.slice(0).sort()
     }
   }
 }
