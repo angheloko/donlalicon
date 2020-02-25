@@ -49,9 +49,14 @@
 
 <script>
 import hljs from 'highlight.js/lib/highlight'
-import javascript from 'highlight.js/lib/languages/javascript'
+import bash from 'highlight.js/lib/languages/bash'
 import css from 'highlight.js/lib/languages/css'
+import javascript from 'highlight.js/lib/languages/javascript'
+import php from 'highlight.js/lib/languages/php'
+import shell from 'highlight.js/lib/languages/shell'
+import sql from 'highlight.js/lib/languages/sql'
 import xml from 'highlight.js/lib/languages/xml'
+import yaml from 'highlight.js/lib/languages/yaml'
 
 export default {
   name: 'BlogDetails',
@@ -73,6 +78,11 @@ export default {
     hljs.registerLanguage('javascript', javascript)
     hljs.registerLanguage('css', css)
     hljs.registerLanguage('xml', xml)
+    hljs.registerLanguage('php', php)
+    hljs.registerLanguage('yaml', yaml)
+    hljs.registerLanguage('sql', sql)
+    hljs.registerLanguage('bash', bash)
+    hljs.registerLanguage('shell', shell)
 
     this.$el.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightBlock(block)

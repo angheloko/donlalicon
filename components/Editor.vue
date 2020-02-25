@@ -142,9 +142,14 @@
 </template>
 
 <script>
-import javascript from 'highlight.js/lib/languages/javascript'
+import bash from 'highlight.js/lib/languages/bash'
 import css from 'highlight.js/lib/languages/css'
+import javascript from 'highlight.js/lib/languages/javascript'
+import php from 'highlight.js/lib/languages/php'
+import shell from 'highlight.js/lib/languages/shell'
+import sql from 'highlight.js/lib/languages/sql'
 import xml from 'highlight.js/lib/languages/xml'
+import yaml from 'highlight.js/lib/languages/yaml'
 import { Editor, EditorContent, EditorMenuBar } from 'tiptap'
 import {
   Blockquote,
@@ -228,7 +233,12 @@ export default {
           languages: {
             javascript,
             css,
-            xml
+            xml,
+            php,
+            yaml,
+            sql,
+            bash,
+            shell
           }
         }),
         new HardBreak(),
