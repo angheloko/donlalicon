@@ -226,7 +226,7 @@ export default {
         this.$router.replace({
           name: 'blog-id-edit',
           params: {
-            'id': blog.id
+            id: blog.id
           }
         })
       }

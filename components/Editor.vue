@@ -288,7 +288,6 @@ export default {
 </script>
 
 <style scoped>
-
 .editor {
   display: flex;
   flex-direction: column;
