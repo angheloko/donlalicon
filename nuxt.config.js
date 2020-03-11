@@ -36,7 +36,15 @@ export default {
   */
   plugins: [
     '~/plugins/firebase',
-    '~/plugins/to-date.js'
+    '~/plugins/to-date',
+    {
+      src: '~/plugins/vue-instantsearch',
+      mode: 'client'
+    },
+    {
+      src: '~/plugins/click-outside',
+      mode: 'client'
+    }
   ],
   /*
   ** Nuxt.js dev-modules

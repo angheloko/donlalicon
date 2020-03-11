@@ -25,7 +25,8 @@
     "nuxt": "^2.0.0",
     "sitemap": "^6.0.0",
     "tiptap": "^1.26.6",
-    "tiptap-extensions": "^1.28.6"
+    "tiptap-extensions": "^1.28.6",
+    "vue-instantsearch": "^2.7.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",
