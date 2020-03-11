@@ -27,6 +27,9 @@ export default {
     await this.loadBlogs()
     window.addEventListener('scroll', this.loadMore)
   },
+  destroyed () {
+    window.removeEventListener('scroll', this.loadMore)
+  },
   methods: {
     async loadBlogs () {
       if (this.isLoading || this.eof) {
