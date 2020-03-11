@@ -33,7 +33,8 @@ exports.indexBlog = functions.firestore.document('blogs/{blogId}')
           objectID: blogId,
           title: document.title,
           body: stopword.removeStopwords(document.body.replace(/(<([^>]+)>)/ig,"").split(' ')).join(' ').replace(/\s\s+/g, ' '),
-          tags: document.tags
+          tags: document.tags,
+          changed: document.changed.toMillis()
         })
         .then(() => {
           return true
