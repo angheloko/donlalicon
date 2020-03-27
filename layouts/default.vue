@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col leading-normal text-gray-800 min-h-screen lg:w-2/4 md:mx-auto md:w-full">
-    <header class="h-16 sm:flex sm:items-center sm:justify-between mx-5">
+    <header class="h-16 sm:flex sm:items-center sm:justify-between mx-5 mb-10">
       <nuxt-link to="/" class="text-gray-800 no-underline hover:text-gray-800 flex items-center">
         <h4 class="text-xl font-mono">
           // donlalicon.dev

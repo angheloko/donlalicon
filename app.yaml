@@ -18,6 +18,9 @@ handlers:
     script: auto
     secure: always
 
+automatic_scaling:
+  min_instances: 1
+
 env_variables:
   HOST: '0.0.0.0'
   NODE_ENV: 'production'

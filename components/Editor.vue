@@ -170,7 +170,8 @@ import {
   Underline,
   Strike,
   History,
-  Image
+  Image,
+  Placeholder
 } from 'tiptap-extensions'
 import IconFormatBold from '~/components/icons/IconFormatBold'
 import IconFormatItalic from '~/components/icons/IconFormatItalic'
@@ -255,7 +256,14 @@ export default {
         new Underline(),
         new Strike(),
         new History(),
-        new Image()
+        new Image(),
+        new Placeholder({
+          emptyEditorClass: 'is-editor-empty',
+          emptyNodeClass: 'is-empty',
+          emptyNodeText: 'Write...',
+          showOnlyWhenEditable: true,
+          showOnlyCurrent: true
+        })
       ],
       content: this.html,
       onUpdate: ({ getHTML }) => {

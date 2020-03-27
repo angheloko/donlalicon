@@ -85,6 +85,15 @@ button {
 .ProseMirror {
   outline: none;
 }
+
+.editor p.is-editor-empty:first-child::before {
+  content: attr(data-empty-text);
+  float: left;
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+  @apply text-gray-400;
+}
 /* purgecss end ignore */
 
 .content {
