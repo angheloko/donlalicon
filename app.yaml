@@ -2,7 +2,7 @@ runtime: nodejs10
 
 instance_class: F2
 
-default_expiration: "1h"
+default_expiration: "8h"
 
 handlers:
   - url: /_nuxt
