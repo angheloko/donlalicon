@@ -16,7 +16,7 @@
     "algoliasearch": "^4.3.0",
     "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.7.0",
-    "stopword": "^0.3.5"
+    "stopword": "^1.0.0"
   },
   "private": true
 }
