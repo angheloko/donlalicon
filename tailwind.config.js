@@ -9,5 +9,8 @@ module.exports = {
   variants: {
     margin: ['responsive', 'first']
   },
-  plugins: []
+  plugins: [],
+  purge: [
+    './**/*.vue'
+  ]
 }
