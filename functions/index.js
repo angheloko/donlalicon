@@ -15,7 +15,7 @@ exports.indexBlog = functions.firestore.document('blogs/{blogId}')
     const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY)
     const index = client.initIndex('blogs')
 
-    function deleteObject() {
+    function deleteObject () {
       return index
         .deleteObject(blogId)
         .then(() => {
@@ -26,13 +26,13 @@ exports.indexBlog = functions.firestore.document('blogs/{blogId}')
         })
     }
 
-    function saveObject() {
+    function saveObject () {
       // The body property is stripped of HTMl tags and stop words.
       return index
         .saveObject({
           objectID: blogId,
           title: document.title,
-          body: stopword.removeStopwords(document.body.replace(/(<([^>]+)>)/ig,"").split(' ')).join(' ').replace(/\s\s+/g, ' '),
+          body: stopword.removeStopwords(document.body.replace(/(<([^>]+)>)/ig, '').split(' ')).join(' ').replace(/\s\s+/g, ' '),
           tags: document.tags,
           changed: document.changed.toMillis()
         })
@@ -46,11 +46,9 @@ exports.indexBlog = functions.firestore.document('blogs/{blogId}')
 
     if (!document) {
       return deleteObject(blogId)
+    } else if (!document.published) {
+      return deleteObject(blogId)
     } else {
-      if (!document.published) {
-        return deleteObject(blogId)
-      } else {
-        return saveObject()
-      }
+      return saveObject()
     }
   })
