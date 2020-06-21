@@ -19,10 +19,10 @@ export default ({ env, store }, inject) => {
   if (!firebase.apps.length) {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig)
-    firebase.analytics()
   }
 
   if (process.client) {
+    firebase.analytics()
     firebase.auth().onAuthStateChanged((user) => {
       store.dispatch('setAuth', user)
     })

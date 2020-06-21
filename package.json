@@ -29,15 +29,12 @@
     "vue-instantsearch": "^2.7.1"
   },
   "devDependencies": {
-    "@babel/runtime-corejs2": "^7.10.3",
-    "@nuxtjs/eslint-config": "^2.0.2",
-    "@nuxtjs/eslint-module": "^1.2.0",
-    "@nuxtjs/tailwindcss": "^1.4.1",
-    "babel-eslint": "^10.1.0",
-    "core-js": "^2.6.11",
+    "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": "^0.5.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2"
+    "eslint-plugin-nuxt": "^1.0.0",
+    "eslint-plugin-promise": "^4.2.1"
   }
 }

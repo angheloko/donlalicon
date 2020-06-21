@@ -33,7 +33,8 @@ export const actions = {
         commit('setAuth', token)
         const expiresIn = 60 * 60 * 24 * 5 * 1000 // 5 days.
         document.cookie = 'token=' + token + ';path=/;max-age=' + expiresIn
-      }, (error) => {
+        return null
+      }).catch((error) => {
         // eslint-disable-next-line no-console
         console.error('Error getting ID token.', error)
         commit('setAuth', null)

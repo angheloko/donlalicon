@@ -18,7 +18,7 @@
         :to="{ name: 'blog-id', params: { id: teaser.id } }"
         class="text-gray-700 no-underline hover:text-gray-700"
       >
-        <div v-html="teaser.body" class="mb-2 text-lg" />
+        <div class="mb-2 text-lg" v-html="teaser.body" />
       </nuxt-link>
       <div class="text-xs text-gray-600 font-light">
         {{ teaser.created | toDate }}

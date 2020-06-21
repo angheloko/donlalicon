@@ -7,6 +7,64 @@ import BlogDetails from '~/components/BlogDetails'
 export default {
   name: 'BlogPage',
   components: { BlogDetails },
+  async asyncData ({ app, params, error }) {
+    const db = app.$firebase.firestore()
+
+    try {
+      const documentSnapshot = await db.collection('blogs').doc(params.id).get()
+
+      if (!documentSnapshot.exists) {
+        error({ statusCode: 404, message: 'Blog not found' })
+        return
+      }
+
+      const promise1 = db
+        .collection('blogs')
+        .where('published', '==', true)
+        .orderBy('created', 'desc')
+        .limit(1)
+        .startAfter(documentSnapshot)
+        .get()
+
+      const promise2 = db
+        .collection('blogs')
+        .where('published', '==', true)
+        .orderBy('created', 'asc')
+        .limit(1)
+        .startAfter(documentSnapshot)
+        .get()
+
+      const prevNext = await Promise.all([promise1, promise2])
+        .then((querySnapshots) => {
+          const docs = []
+          for (const querySnapshot of querySnapshots) {
+            if (querySnapshot.empty) {
+              docs.push(null)
+            } else {
+              const doc = querySnapshot.docs[0]
+              docs.push({
+                id: doc.id,
+                title: doc.get('title')
+              })
+            }
+          }
+          return docs
+        })
+
+      return {
+        blog: {
+          id: documentSnapshot.id,
+          ...documentSnapshot.data()
+        },
+        prev: prevNext[0],
+        next: prevNext[1]
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e)
+      error({ statusCode: 404, message: 'Blog not found' })
+    }
+  },
   data () {
     return {
       blog: null,
@@ -85,64 +143,6 @@ export default {
   validate ({ params }) {
     // Must be a number
     return params.id !== undefined
-  },
-  async asyncData ({ app, params, error }) {
-    const db = app.$firebase.firestore()
-
-    try {
-      const documentSnapshot = await db.collection('blogs').doc(params.id).get()
-
-      if (!documentSnapshot.exists) {
-        error({ statusCode: 404, message: 'Blog not found' })
-        return
-      }
-
-      const promise1 = db
-        .collection('blogs')
-        .where('published', '==', true)
-        .orderBy('created', 'desc')
-        .limit(1)
-        .startAfter(documentSnapshot)
-        .get()
-
-      const promise2 = db
-        .collection('blogs')
-        .where('published', '==', true)
-        .orderBy('created', 'asc')
-        .limit(1)
-        .startAfter(documentSnapshot)
-        .get()
-
-      const prevNext = await Promise.all([promise1, promise2])
-        .then((querySnapshots) => {
-          const docs = []
-          for (const querySnapshot of querySnapshots) {
-            if (querySnapshot.empty) {
-              docs.push(null)
-            } else {
-              const doc = querySnapshot.docs[0]
-              docs.push({
-                id: doc.id,
-                title: doc.get('title')
-              })
-            }
-          }
-          return docs
-        })
-
-      return {
-        blog: {
-          id: documentSnapshot.id,
-          ...documentSnapshot.data()
-        },
-        prev: prevNext[0],
-        next: prevNext[1]
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e)
-      error({ statusCode: 404, message: 'Blog not found' })
-    }
   }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div class="text-center">
-    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    <div class="lds-ring">
+      <div /><div /><div /><div />
+    </div>
   </div>
 </template>
 
@@ -24,7 +26,8 @@ export default {
   width: 64px;
   height: 64px;
   margin: 5px;
-  border: 5px solid #dd6b20;
+  border-width: 5px;
+  border-style: solid;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #dd6b20 transparent transparent transparent;

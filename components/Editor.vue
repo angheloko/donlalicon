@@ -1,40 +1,40 @@
 <template>
   <div class="editor">
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, getMarkAttrs }">
+    <editor-menu-bar v-slot="{ commands, isActive, getMarkAttrs }" :editor="editor">
       <div class="menubar flex flex-wrap items-center mb-2">
         <div class="menubar__group">
           <button
             :class="{ 'is-active': isActive.bold() }"
-            @click="commands.bold"
             class="menubar__button"
+            @click="commands.bold"
           >
             <icon-format-bold class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.italic() }"
-            @click="commands.italic"
             class="menubar__button"
+            @click="commands.italic"
           >
             <icon-format-italic class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.strike() }"
-            @click="commands.strike"
             class="menubar__button"
+            @click="commands.strike"
           >
             <icon-format-strikethrough class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.underline() }"
-            @click="commands.underline"
             class="menubar__button"
+            @click="commands.underline"
           >
             <icon-format-underline class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.code() }"
-            @click="commands.code"
             class="menubar__button"
+            @click="commands.code"
           >
             <icon-format-code class="menubar__icon" />
           </button>
@@ -42,22 +42,22 @@
         <div class="menubar__group">
           <button
             :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-            @click="commands.heading({ level: 2 })"
             class="menubar__button"
+            @click="commands.heading({ level: 2 })"
           >
             H2
           </button>
           <button
             :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-            @click="commands.heading({ level: 3 })"
             class="menubar__button"
+            @click="commands.heading({ level: 3 })"
           >
             H3
           </button>
           <button
             :class="{ 'is-active': isActive.heading({ level: 4 }) }"
-            @click="commands.heading({ level: 4 })"
             class="menubar__button"
+            @click="commands.heading({ level: 4 })"
           >
             H4
           </button>
@@ -65,15 +65,15 @@
         <div class="menubar__group">
           <button
             :class="{ 'is-active': isActive.bullet_list() }"
-            @click="commands.bullet_list"
             class="menubar__button"
+            @click="commands.bullet_list"
           >
             <icon-format-list-bulleted class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.ordered_list() }"
-            @click="commands.ordered_list"
             class="menubar__button"
+            @click="commands.ordered_list"
           >
             <icon-format-list-numbered class="menubar__icon" />
           </button>
@@ -81,56 +81,56 @@
         <div class="menubar__group">
           <button
             :class="{ 'is-active': isActive.link() }"
-            @click="showLinkPrompt(commands.link, getMarkAttrs('link'))"
             class="menubar__button"
+            @click="showLinkPrompt(commands.link, getMarkAttrs('link'))"
           >
             <icon-link class="menubar__icon" />
           </button>
           <button
             :disabled="!isActive.link()"
             :class="{ 'is-disabled': !isActive.link() }"
-            @click="removeLink(commands.link)"
             class="menubar__button"
+            @click="removeLink(commands.link)"
           >
             <icon-link-off class="menubar__icon" />
           </button>
           <button
-            @click="showImagePrompt(commands.image)"
             class="menubar__button"
+            @click="showImagePrompt(commands.image)"
           >
             <icon-add-photo class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.blockquote() }"
-            @click="commands.blockquote"
             class="menubar__button"
+            @click="commands.blockquote"
           >
             <icon-format-quote class="menubar__icon" />
           </button>
           <button
             :class="{ 'is-active': isActive.code_block() }"
-            @click="commands.code_block"
             class="menubar__button"
+            @click="commands.code_block"
           >
             <icon-format-code class="menubar__icon" />
           </button>
           <button
-            @click="commands.horizontal_rule"
             class="menubar__button"
+            @click="commands.horizontal_rule"
           >
             <icon-remove class="menubar__icon" />
           </button>
         </div>
         <div class="menubar__group">
           <button
-            @click="commands.undo"
             class="menubar__button"
+            @click="commands.undo"
           >
             <icon-undo class="menubar__icon" />
           </button>
           <button
-            @click="commands.redo"
             class="menubar__button"
+            @click="commands.redo"
           >
             <icon-redo class="menubar__icon" />
           </button>
@@ -277,12 +277,14 @@ export default {
   },
   methods: {
     showImagePrompt (command) {
+      // eslint-disable-next-line no-alert
       const src = prompt('Enter the URL of the image')
       if (src !== null) {
         command({ src })
       }
     },
     showLinkPrompt (command, attrs) {
+      // eslint-disable-next-line no-alert
       const href = prompt('Enter the URL', attrs.href)
       if (href !== null) {
         command({ href })

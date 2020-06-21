@@ -5,8 +5,9 @@
 export default {
   name: 'LogoutPage',
   mounted () {
-    this.$firebase.auth().signOut().then(() => {
+    return this.$firebase.auth().signOut().then(() => {
       this.$router.replace('/')
+      return null
     })
   }
 }

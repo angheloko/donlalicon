@@ -4,7 +4,7 @@
       <div class="mx-5">
         <div class="mb-4">
           <label for="title">Title</label>
-          <input id="title" v-model="blog.title" @input="updateId" type="text" placeholder="Title">
+          <input id="title" v-model="blog.title" type="text" placeholder="Title" @input="updateId">
         </div>
         <editor v-model="blog.body" />
       </div>
@@ -22,33 +22,33 @@
           </label>
         </div>
         <div class="mb-4">
-          <label for="imageUrl">Image</label>
+          <label>Image</label>
           <div v-if="blog.imageUrl">
             <img :src="blog.imageUrl" class="w-24 md:w-32 h-auto object-cover inline-block" alt="">
             <button
               v-if="blog.imageUrl"
-              @click="deleteImage"
               :disabled="isDeletingImage"
               type="button"
               class="bg-red-500 border-red-300 text-white"
+              @click="deleteImage"
             >
               {{ isDeletingImage ? 'Deleting...' : 'Delete' }}
             </button>
           </div>
           <button
             v-if="!blog.imageUrl"
-            @click="launchImageFile"
             :disabled="isUploadingImage"
             type="button"
+            @click="launchImageFile"
           >
             {{ isUploadingImage ? 'Uploading...' : 'Upload' }}
           </button>
           <input
             ref="imageFile"
-            @change.prevent="uploadImageFile($event.target.files)"
             type="file"
             accept="image/png, image/jpeg"
             class="hidden"
+            @change.prevent="uploadImageFile($event.target.files)"
           >
         </div>
         <div class="mb-4">
@@ -79,8 +79,8 @@
           <div class="float-left">
             <button
               :disabled="!!status"
-              @click="submitForm"
               type="button"
+              @click="submitForm"
             >
               {{ status ? status : 'Save' }}
             </button>
@@ -88,9 +88,9 @@
           </div>
           <div class="float-right">
             <button
-              @click="confirmDelete"
               type="button"
               class="bg-red-500 border-red-300 text-white"
+              @click="confirmDelete"
             >
               Delete
             </button>
@@ -147,6 +147,7 @@ export default {
   methods: {
     async submitForm () {
       if (!this.blog.id) {
+        // eslint-disable-next-line no-alert
         alert('Please enter the blog ID.')
         this.$refs.id.focus()
         return
@@ -155,6 +156,7 @@ export default {
       if (this.originalId !== this.blog.id) {
         const exists = await this.checkExists(this.blog.id)
         if (exists) {
+          // eslint-disable-next-line no-alert
           alert('Blog ID already exists. Please enter a unique blog ID.')
           this.$refs.id.focus()
           return
@@ -210,6 +212,7 @@ export default {
 
         await Promise.all(promises)
       } catch (error) {
+        // eslint-disable-next-line no-alert
         alert('Error saving blog or teaser')
         // eslint-disable-next-line no-console
         console.error(error)
@@ -232,6 +235,7 @@ export default {
       }
     },
     confirmDelete () {
+      // eslint-disable-next-line no-alert
       const result = window.confirm('Are you sure you want to delete this blog?')
       if (result) {
         if (this.originalId) {
@@ -242,12 +246,15 @@ export default {
 
           Promise.all([promise1, promise2])
             .then(() => {
+              // eslint-disable-next-line no-alert
               alert('Blog deleted!')
               this.$router.push({
                 path: '/admin'
               })
+              return null
             })
             .catch((error) => {
+              // eslint-disable-next-line no-alert
               alert('Unable to delete blog!')
               // eslint-disable-next-line no-console
               console.error(error)
@@ -294,6 +301,7 @@ export default {
       const file = files[0]
 
       if (!file.type.match('image.*')) {
+        // eslint-disable-next-line no-alert
         alert('Please upload an image.')
         return
       }
@@ -319,10 +327,11 @@ export default {
 
       this.isUploadingImage = true
 
-      return Promise.all([fullImageUploadPromise, thumbImageUploadPromise])
+      await Promise.all([fullImageUploadPromise, thumbImageUploadPromise])
         .then((results) => {
           this.blog.imageUrl = results[0]
           this.blog.teaserImageUrl = results[1]
+          return null
         })
         .finally(() => {
           this.isUploadingImage = false
@@ -333,6 +342,7 @@ export default {
       const imageRef = storage.ref(`images/${filename}`)
 
       return imageRef.put(blob, metadata).then((snapshot) => {
+        // eslint-disable-next-line promise/no-nesting
         return snapshot.ref.getDownloadURL().then((url) => {
           return url
         })
@@ -391,10 +401,11 @@ export default {
       const fullImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.imageUrl).delete()
       const thumbImageDeletePromise = this.$firebase.storage().refFromURL(this.blog.teaserImageUrl).delete()
 
-      Promise.all([fullImageDeletePromise, thumbImageDeletePromise])
+      return Promise.all([fullImageDeletePromise, thumbImageDeletePromise])
         .then(() => {
           this.blog.imageUrl = ''
           this.blog.teaserImageUrl = ''
+          return null
         })
         .catch((error) => {
           // eslint-disable-next-line no-console

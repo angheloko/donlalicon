@@ -1,8 +1,8 @@
 <template>
   <div class="w-full max-w-xs mx-auto">
     <form
-      @submit.prevent
       class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      @submit.prevent
     >
       <div class="mb-4">
         <label for="email">
@@ -28,8 +28,8 @@
       </div>
       <div class="flex items-center justify-between">
         <button
-          @click="submitForm"
           type="submit"
+          @click="submitForm"
         >
           Sign In
         </button>
@@ -65,7 +65,8 @@ export default {
   methods: {
     submitForm () {
       this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .catch(function (error) {
+        .catch((error) => {
+          // eslint-disable-next-line no-alert
           alert(error.message)
         })
     }

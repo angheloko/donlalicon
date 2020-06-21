@@ -17,9 +17,9 @@
     <figure v-if="blog.imageUrl" class="mb-5">
       <!--suppress HtmlUnknownTarget -->
       <img :src="blog.imageUrl" :alt="blog.imageAlt || blog.title" class="w-full">
-      <figcaption v-if="blog.imageCaption" v-html="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" />
+      <figcaption v-if="blog.imageCaption" class="text-center text-gray-600 text-sm my-2" v-html="blog.imageCaption" />
     </figure>
-    <div v-html="blog.body" class="content" />
+    <div class="content" v-html="blog.body" />
     <div class="flex border rounded shadow p-5 text-gray-600 md:w-2/3 mx-auto my-10 items-center">
       <img src="/avatar.jpg" alt="Author" class="h-20 w-20 object-cover rounded-full flex-shrink-0 mr-5">
       <div>
