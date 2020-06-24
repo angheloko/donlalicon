@@ -5,18 +5,29 @@
   "author": "Don Lalicon",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env NODE_ENV=development nodemon src/server/index.js --watch server",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "cross-env NODE_ENV=production node src/server/index.js",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "deploy": "npm run build && gcloud app deploy --project donlalicon"
+    "build:firebase": "npm run clean && npm run build && npm run copy && cd functions && npm i",
+    "clean": "npm run clean:public && npm run clean:functions && npm run clean:static",
+    "clean:functions": "rimraf \"functions/node_modules\" && rimraf \"functions/.nuxt\"",
+    "clean:public": "rimraf \"public/**/*.*!(md)\" && rimraf \"public/_nuxt\"",
+    "clean:static": "rimraf \"src/static/sw.js\"",
+    "copy": "npm run copy:nuxt && npm run copy:static",
+    "copy:nuxt": "mkdir public/_nuxt && cp -r functions/.nuxt/dist/* public/_nuxt",
+    "copy:static": "cp -r src/static/* public",
+    "start:firebase": "firebase serve --only functions,hosting",
+    "deploy": "firebase deploy --only functions,hosting"
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "algoliasearch": "^4.3.0",
     "cookieparser": "^0.1.0",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
     "firebase": "^7.15.3",
     "firebase-admin": "^8.12.1",
     "highlight.js": "^9.18.1",
@@ -33,8 +44,10 @@
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/tailwindcss": "^1.0.0",
     "babel-eslint": "^10.0.1",
+    "core-js": "^2.6.11",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": "^1.0.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "nodemon": "^1.18.9"
   }
 }
