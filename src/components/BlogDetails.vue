@@ -24,7 +24,7 @@
       <img src="/avatar.jpg" alt="Author" class="h-20 w-20 object-cover rounded-full flex-shrink-0 mr-5">
       <div>
         Hey there! I hope you find this post useful. If you have anything to say about this post,
-        questions or feedback, send me a <a href="https://twitter.com/DonHasTweets" target="_blank">tweet</a>
+        questions or feedback, send me a <a href="https://twitter.com/DonOrDoNot" target="_blank">tweet</a>
         or an <a href="mailto:dalalicon@gmail.com" target="_blank">email</a>.
       </div>
     </div>
