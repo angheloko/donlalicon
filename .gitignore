@@ -90,3 +90,4 @@ sw.*
 *.swp
 /keys/
 /static/sitemap.xml
+/public/
