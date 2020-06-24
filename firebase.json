@@ -15,7 +15,7 @@
     "rewrites": [
       {
         "source": "/sitemap.xml",
-        "function": "nuxtssr"
+        "function": "sitemap"
       },
       {
         "source": "**",
