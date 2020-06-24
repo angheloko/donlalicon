@@ -91,3 +91,4 @@ sw.*
 /keys/
 /static/sitemap.xml
 /public/
+/.firebase/
