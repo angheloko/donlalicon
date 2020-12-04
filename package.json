@@ -19,7 +19,7 @@
     "cookieparser": "^0.1.0",
     "firebase": "^7.15.3",
     "firebase-admin": "^8.12.1",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.4.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
     "nuxt": "^2.13.0",
