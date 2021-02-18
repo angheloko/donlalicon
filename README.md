@@ -1,5 +1,7 @@
 # donlalicon.dev
 
+[donlalicon.dev](https://donlalicon.dev) is now a statically generated site. You can check [angheloko/donlalicon-static](https://github.com/angheloko/donlalicon-static) for the new source code.
+
 My blog
 
 ## Build Setup
